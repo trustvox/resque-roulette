@@ -6,9 +6,7 @@ volumes:
 services:
   gem:
     build: .
-    environment:
-      - HOME=/src
     volumes:
       - .:/src
-      - ~/.ssh/:/home/root/ssh
+      - ~/.ssh/:/home/root/.ssh
       - bundle:/usr/local/bundle
