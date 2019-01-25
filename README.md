@@ -14,6 +14,13 @@ so on). This plugin randomizes the order of the queues based on weights, so that
 weights 4, 3, 2, 1, repsectively, A will be first 40% of the time, B 30%, C 20%, and D 10%. In addition, when B is first, A will be second 4/7ths of the time (4 / [4+2+1]), and so on. The
 project is inspired by [resque-fairly](https://github.com/pezra/resque-fairly) by Peter Williams, which unfortunately mathematically does not give you this control over the weights.
 
+### Install
+
+```rb
+# gem 'resque'
+gem 'resque-roulette'
+```
+
 ### Example usage
 
 ``` ruby
@@ -28,8 +35,13 @@ Resque::Plugins::Roulette.prioritize('someotherqueue', 6)
 Now, workers processing all three queues will (assuming all queues have jobs) take jobs from someotherqueue 60% of the time, myotherqueue 30% of the time, and myqueue 10% of the time. This is achieved
 by reordering the queues, so if someotherqueue is empty, the workers will take jobs from myotherqueue 75% (3/4) of the time.
 
+### Publish
+
+- `rake build`
+- `rake release`
+- `gem push pkg/resque-roulette-<version>.gem`
 
 ### Authors
 
-- **Mantainer** - Bruno Casali @brunoocasali
-- **Creator**   - Evan Battaglia @evanbattaglia
+- **Mantainer** - Bruno Casali [@brunoocasali](https://github.com/brunoocasali)
+- **Creator**   - Evan Battaglia [@evanbattaglia](https://github.com/evanbattaglia)
