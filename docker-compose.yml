@@ -10,4 +10,5 @@ services:
       - HOME=/src
     volumes:
       - .:/src
+      - ~/.ssh/:/home/root/ssh
       - bundle:/usr/local/bundle
