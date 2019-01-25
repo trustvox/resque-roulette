@@ -1,0 +1,13 @@
+version: '3'
+
+volumes:
+  bundle:
+
+services:
+  gem:
+    build: .
+    environment:
+      - HOME=/src
+    volumes:
+      - .:/src
+      - bundle:/usr/local/bundle
