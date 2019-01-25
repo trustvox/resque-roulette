@@ -32,8 +32,8 @@ module Resque::Plugins
 
     def self.included(klass)
       klass.instance_eval do
-        alias queues_orig_ordered queues
-        alias queues queues_randomly_ordered
+        alias_method :queues_orig_ordered, :queues
+        alias_method :queues, :queues_randomly_ordered
       end
     end
 
