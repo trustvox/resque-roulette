@@ -1,8 +1,4 @@
-![Status: Production](https://img.shields.io/badge/status-production-green.svg?style=flat)
-![Open Source: yes](https://img.shields.io/badge/open_source-yes-green.svg?style=flat)
-![Team: Research Tools](https://img.shields.io/badge/team-research_tools-green.svg?style=flat)
-
-resque-unfairly
+resque-roullete
 ===============
 
 Usually Resque workers work on queues in the given order (if there is something in the first, work it, otherwise if the there is something in the second, work on it, and
@@ -14,13 +10,12 @@ project is inspired by [resque-fairly](https://github.com/pezra/resque-fairly) b
 
 ``` ruby
 require 'resque'
-require 'resque/plugins/unfairly'
+require 'resque/plugins/roullete'
 
-Resque::Plugins::Unfairly::prioritize("myqueue", 1)
-Resque::Plugins::Unfairly::prioritize("myotherqueue", 3)
-Resque::Plugins::Unfairly::prioritize("someotherqueue", 6)
+Resque::Plugins::Roullete.prioritize('myqueue' 1)
+Resque::Plugins::Roullete.prioritize('myotherqueue', 3)
+Resque::Plugins::Roullete.prioritize('someotherqueue', 6)
 ```
 
 Now, workers processing all three queues will (assuming all queues have jobs) take jobs from someotherqueue 60% of the time, myotherqueue 30% of the time, and myqueue 10% of the time. This is achieved
 by reordering the queues, so if someotherqueue is empty, the workers will take jobs from myotherqueue 75% (3/4) of the time.
-

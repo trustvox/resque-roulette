@@ -1,18 +1,18 @@
 require 'resque/worker'
 
 module Resque::Plugins
-  module Unfairly
+  module Roullete
     # Define an 'unfair' priority multiplier to queues
     def self.prioritize(queue, value)
       priorities[queue] = value
     end
-    
+
     def self.priorities
       @priorities ||= {}
     end
 
     # Returns a list of queues to use when searching for a job.  A
-    # splat ("*") means you want every queue 
+    # splat ("*") means you want every queue
     #
     # The queues will be ordered randomly and the order will change
     # with every call.  This prevents any particular queue for being
@@ -22,7 +22,7 @@ module Resque::Plugins
     # If priorities have been established, the randomness of the order
     # will be weighted according to the multipliers
     def queues_randomly_ordered
-      queue_priorities = queues_orig_ordered.map{ |q| Unfairly.priorities[q] }
+      queue_priorities = queues_orig_ordered.map{ |q| Roullete.priorities[q] }
       if queue_priorities.compact.any?
         weighted_order(queues_orig_ordered, queue_priorities.map{|p| p or 1})
       else
@@ -31,7 +31,7 @@ module Resque::Plugins
     end
 
     def self.included(klass)
-      klass.instance_eval do 
+      klass.instance_eval do
         alias_method :queues_orig_ordered, :queues
         alias_method :queues, :queues_randomly_ordered
       end
@@ -61,6 +61,6 @@ module Resque::Plugins
     end
   end
 
-  Resque::Worker.send(:include, Unfairly)
+  Resque::Worker.send(:include, Roullete)
 end
 

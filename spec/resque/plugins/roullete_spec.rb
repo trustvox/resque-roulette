@@ -1,6 +1,6 @@
-require File.expand_path("../../spec_helper", File.dirname(__FILE__))
+require File.expand_path('../../spec_helper', File.dirname(__FILE__))
 
-describe Resque::Plugins::Unfairly do
+describe Resque::Plugins::Roullete do
   context 'with our own priorities' do
     before do
       described_class.instance_variable_set :@priorities, nil
@@ -36,7 +36,7 @@ describe Resque::Plugins::Unfairly do
             counts['d'].should > 0.08 and counts['d'].should < 0.12
           end
         end
-        
+
         context "with weights 7, 1, 2, 0" do
           let (:priorities) { { 'a' => 7, 'b' => 1, 'c' => 2, 'd' => 0 } }
 
@@ -49,8 +49,8 @@ describe Resque::Plugins::Unfairly do
         end
 
       end
-      
-      
+
+
       context 'when priorities is not set' do
         it 'consistenty gives the original order' do
           10.times do
