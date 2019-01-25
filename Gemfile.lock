@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    resque-roulette (0.0.1)
+    resque-roulette (0.0.2)
       resque (~> 1.0)
 
 GEM
