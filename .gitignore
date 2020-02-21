@@ -1,3 +1,5 @@
 *.gem
 .bundle
 pkg/*
+.bash_history
+.gitconfig
